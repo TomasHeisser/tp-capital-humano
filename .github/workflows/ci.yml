@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [develop, main]
+
+jobs:
+  backend:
+    name: Backend (tests y cobertura)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: api
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '25'
+          cache: maven
+      - name: Compilar, testear y controlar cobertura
+        run: ./mvnw -B verify
+
+  frontend:
+    name: Frontend (build)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Ver si ya existe el frontend
+        id: hay
+        run: |
+          if [ -f frontend/package.json ]; then echo "front=si" >> "$GITHUB_OUTPUT"; else echo "front=no" >> "$GITHUB_OUTPUT"; fi
+      - uses: actions/setup-node@v4
+        if: steps.hay.outputs.front == 'si'
+        with:
+          node-version: lts/*
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Instalar y compilar
+        if: steps.hay.outputs.front == 'si'
+        working-directory: frontend
+        run: |
+          npm ci
+          npm run build
