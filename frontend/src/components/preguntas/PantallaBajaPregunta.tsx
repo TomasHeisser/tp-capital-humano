@@ -46,7 +46,7 @@ export default function PantallaBajaPregunta({ pregunta, onCerrar }: Props) {
         titulo="Confirmación"
         botones={[
           { texto: "ELIMINAR", onClick: eliminar, peligro: true },
-          { texto: "CANCELAR", onClick: () => onCerrar(false) },
+          { texto: "CANCELAR", onClick: () => onCerrar(false), foco: true },
         ]}
       >
         {M22(pregunta.nombre)}

@@ -58,7 +58,8 @@ public class EvaluacionController {
         return gestor.registrarEvaluacion(e, username);
     }
 
-    // el ArchivoDTO del gestor se manda como descarga (.xlsx con su nombre)
+    // el gestor devuelve el ArchivoDTO del diagrama; aca se mandan sus bytes como descarga
+    // (.xlsx con el nombre del archivo) porque un archivo no viaja bien como JSON
     @Operation(summary = "Descarga el Excel con los candidatos de la evaluación y sus claves")
     @GetMapping("/{id}/claves")
     public ResponseEntity<byte[]> exportarClaves(@PathVariable("id") Long idEvaluacion) {

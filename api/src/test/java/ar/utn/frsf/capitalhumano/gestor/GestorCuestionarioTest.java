@@ -225,6 +225,21 @@ class GestorCuestionarioTest {
     }
 
     @Test
+    void responderPasadoElTiempoMaximoLoDejaIncompletoConM32() {
+        existe();
+        BloqueDTO b1 = gestor.comenzar(1L);
+        ahora = ahora.plusMinutes(121);
+
+        CuestionarioDTO dto = gestor.responderBloque(1L, 1, responder(b1, p -> 0));
+
+        assertEquals("INCOMPLETO", dto.getEstado());
+        assertEquals(GestorCuestionario.M32, dto.getMensaje());
+        assertTrue(cuestionario.getBloques().get(0).getRespuestas().isEmpty());
+        // una vez al comenzar y otra al pasarlo a Incompleto
+        verify(cuestionarioDAO, times(2)).actualizar(cuestionario);
+    }
+
+    @Test
     void elPuntajeEsLaSumaSobreDosYElPromedioDeFactores() {
         existe();
         BloqueDTO b1 = gestor.comenzar(1L);

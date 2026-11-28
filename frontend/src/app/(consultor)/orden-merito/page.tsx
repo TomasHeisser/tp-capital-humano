@@ -65,6 +65,9 @@ export default function PantallaOrdenMerito() {
   const puesto = puestos.find((p) => p.id === seleccion) ?? null;
   const salir = () => router.push("/principal");
 
+  // ultimo paso: el listado sale por la impresora con el dialogo del navegador
+  const imprimir = () => window.print();
+
   // pasos 3 y 4
   const buscar = async (e: FormEvent) => {
     e.preventDefault();
@@ -135,7 +138,7 @@ export default function PantallaOrdenMerito() {
         <h2 className="mb-2 text-[13.5px] font-semibold">3. Resto de los candidatos agrupados por estado</h2>
         <Grilla<FilaOrdenMeritoDTO> columnas={COLUMNAS_RESTO} filas={grupos.flatMap(([, filas]) => filas)} clave={clave} vacio="Ningún candidato en este grupo" />
         <div className="no-imprimir flex justify-end gap-2.5">
-          <Boton variante="primario" onClick={() => window.print()} autoFocus>
+          <Boton variante="primario" onClick={imprimir} autoFocus>
             Imprimir
           </Boton>
           <Boton onClick={() => setReporte(null)}>Cerrar</Boton>
