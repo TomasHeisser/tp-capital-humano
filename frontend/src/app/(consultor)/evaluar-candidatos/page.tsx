@@ -185,12 +185,12 @@ export default function PantallaEvaluarCandidatos() {
     }
   };
 
-  // pasos 14 a 18: se descarga el Excel (el navegador pregunta donde guardarlo) y termina
+  // pasos 14 a 18: se descarga el Excel (el navegador pregunta donde guardarlo)
   const exportar = async () => {
     if (!evaluacion) return;
     try {
       await api.descargar(`/api/evaluaciones/${evaluacion.id}/claves`, "claves.xlsx");
-      salir();
+      // 16.A: queda abierta la pregunta de M30 por si quiere exportar de nuevo; con NO termina
     } catch (err) {
       setEvaluacion(null);
       fallo(err, "No se pudo exportar el archivo");

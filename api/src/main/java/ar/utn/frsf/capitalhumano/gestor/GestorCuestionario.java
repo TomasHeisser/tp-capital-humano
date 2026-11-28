@@ -106,6 +106,11 @@ public class GestorCuestionario {
         if (!EstadoCuestionario.EN_PROCESO.equals(c.getEstado().getNombre())) {
             throw new IllegalStateException(NO_DISPONIBLE);
         }
+        // si se le paso el tiempo maximo mientras respondia, no se guarda nada y pasa a Incompleto
+        if (c.verificarVencimiento(reloj.get())) {
+            cuestionarioDAO.actualizar(c);
+            return dto(c, M32, null, null);
+        }
         BloqueCuestionario b = c.getBloquePendiente();
         // un bloque respondido no se puede volver a mandar
         if (b == null || !b.getNroBloque().equals(nroBloque)) {

@@ -8,6 +8,8 @@ export interface BotonDialogo {
   onClick: () => void;
   primario?: boolean;
   peligro?: boolean;
+  /** si ningun boton lo pide, el foco va al primero */
+  foco?: boolean;
 }
 
 interface Props {
@@ -51,7 +53,7 @@ export default function Dialogo({ abierto, titulo, children, botones, cualquierT
         <div className="px-5 py-4 text-[13.5px] leading-relaxed">{children}</div>
         <div className="flex justify-end gap-2.5 px-5 pb-4">
           {botones.map((b, i) => (
-            <Boton key={b.texto} variante={b.peligro ? "peligro" : b.primario ? "primario" : "secundario"} autoFocus={i === 0} onClick={b.onClick}>
+            <Boton key={b.texto} variante={b.peligro ? "peligro" : b.primario ? "primario" : "secundario"} autoFocus={botones.some((x) => x.foco) ? !!b.foco : i === 0} onClick={b.onClick}>
               {b.texto}
             </Boton>
           ))}

@@ -172,6 +172,8 @@ son solo del candidato dueño de ese cuestionario; el resto, del consultor. Los 
 | 027 / 028 | `GET /api/reportes/puestos?codigo=&nombre=&empresa=` · `GET /api/reportes/puestos/{id}/evaluaciones` · `GET /api/reportes/puestos/{id}/evaluados` · `POST /api/reportes/{tipo}` (`ORDEN_MERITO` o `COMPARATIVO`) | → `PuestoEstadisticaDTO[]` · → `EvaluacionDTO[]` · → `CandidatoEvaluadoDTO[]` · `CriterioReporteDTO` → `ReporteDTO` |
 | 032 | Sin endpoint: `TareaFinalizarCuestionarios` corre sola cada 5 minutos | |
 
+En `GET /api/evaluaciones/{id}/claves`, `GestorEvaluaciones.exportarClaves` devuelve un `ArchivoDTO` (nombre y contenido) y `EvaluacionController` lo manda como descarga del `.xlsx`.
+
 ### Ejemplos con curl
 
 ```bash
