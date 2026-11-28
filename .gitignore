@@ -1,0 +1,26 @@
+# dependencias y compilados
+node_modules/
+.next/
+out/
+target/
+build/
+
+# variables locales (nunca se suben)
+.env
+.env.local
+*.log
+
+# editores
+.idea/
+*.iml
+.vscode/*
+!.vscode/extensions.json
+
+# sistema operativo (Google Drive en Mac crea archivos Icon en cada carpeta)
+.DS_Store
+Icon?
+Thumbs.db
+
+# frontend
+next-env.d.ts
+*.tsbuildinfo

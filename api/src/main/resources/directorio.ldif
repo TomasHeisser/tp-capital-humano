@@ -1,0 +1,30 @@
+# directorio de prueba: hace de LDAP de la consultora (solo para correr local)
+dn: dc=capitalhumano,dc=com
+objectClass: top
+objectClass: domain
+dc: capitalhumano
+
+dn: ou=consultores,dc=capitalhumano,dc=com
+objectClass: top
+objectClass: organizationalUnit
+ou: consultores
+
+dn: uid=JPEREZ,ou=consultores,dc=capitalhumano,dc=com
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+uid: JPEREZ
+cn: Juan Perez
+sn: Perez
+userPassword: jperez2026
+
+dn: uid=MGARCIA,ou=consultores,dc=capitalhumano,dc=com
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+uid: MGARCIA
+cn: Maria Garcia
+sn: Garcia
+userPassword: mgarcia2026
