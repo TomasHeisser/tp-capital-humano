@@ -1,0 +1,27 @@
+# Base de datos local del sistema (PostgreSQL 16).
+# Los scripts de db/ corren solo la primera vez que se crea el volumen.
+# Para volver a cargar el seed: docker compose down -v && docker compose up -d
+services:
+  db:
+    image: postgres:16
+    container_name: capitalhumano-db
+    environment:
+      POSTGRES_DB: capitalhumano
+      POSTGRES_USER: capitalhumano
+      POSTGRES_PASSWORD: capitalhumano
+      TZ: America/Argentina/Buenos_Aires
+      PGTZ: America/Argentina/Buenos_Aires
+    ports:
+      - "5433:5432"
+    volumes:
+      - datos:/var/lib/postgresql/data
+      - ./db/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+      - ./db/seed.sql:/docker-entrypoint-initdb.d/02-seed.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U capitalhumano -d capitalhumano"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  datos:
